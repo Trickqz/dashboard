@@ -7,12 +7,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -52,7 +48,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CopyIcon, ExternalLink } from "lucide-react";
+import { CopyIcon, ExternalLink, ShoppingCart } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -63,6 +59,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { Separator } from "./ui/separator";
 
 function ReportSection({ title }: { title: string }) {
   const [date, setDate] = React.useState<Date>();
@@ -196,42 +193,53 @@ export default function Header() {
         </NavigationMenu>
       </nav>
       <div className="flex flex-row gap-4 items-center">
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline"><ExternalLink className="mr-1" width={14} />Share</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
-            <DialogHeader>
-              <DialogTitle>Share link</DialogTitle>
-              <DialogDescription>
-                Anyone who has this link will be able to view this.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex items-center space-x-2">
-              <div className="grid flex-1 gap-2">
-                <Label htmlFor="link" className="sr-only">
-                  Link
-                </Label>
-                <Input
-                  id="link"
-                  defaultValue="https://ui.shadcn.com/docs/installation"
-                  readOnly
-                />
+        <div className="flex flex-row gap-2">
+          <Button variant="outline"><ShoppingCart className="mr-1" width={14} />Buy</Button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline"><ExternalLink className="mr-1" width={14} />Share</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>Share with friends</DialogTitle>
+                <DialogDescription>To make it easier, you can share by QRCode. Just ask your friend to scan the code below.</DialogDescription>
+              </DialogHeader>
+              <Separator />
+              <div className="flex justify-center p-4">
+                <img className="w-60 h-60" src="https://github.com/endroid/qr-code/blob/main/.github/example.png?raw=true" alt="" />
               </div>
-              <Button type="submit" size="sm" className="px-3">
-                <span className="sr-only">Copy</span>
-                <CopyIcon className="h-4 w-4" />
-              </Button>
-            </div>
-            <DialogFooter className="sm:justify-start">
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  Close
+              <Separator />
+              <div className="flex items-center space-x-2">
+                <div className="grid flex-1 gap-2">
+                  <Label htmlFor="link" className="sr-only">
+                    Link
+                  </Label>
+                  <div className='relative'>
+                    <span className='absolute left-2 top-1/2 transform text-sm opacity-50 -translate-y-1/2'>/create-account/</span>
+                    <Input
+                      className='pl-28'
+                      id="link"
+                      defaultValue="officialaccount"
+                      readOnly
+                    />
+                  </div>
+                </div>
+                <Button type="submit" size="sm" className="px-3 h-10 transition hover:opacity-50">
+                  <span className="sr-only">Copy</span>
+                  <CopyIcon className="h-4 w-4" />
                 </Button>
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+              </div>
+              <Separator />
+              <DialogFooter className="sm:justify-start">
+                <DialogClose asChild>
+                  <Button type="button" variant="secondary">
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
         <div className="flex flex-row gap-2">
           <Input className="w-60 md:flex hidden" placeholder="Search..." />
           <ModeToggle />
@@ -249,9 +257,7 @@ export default function Header() {
             <DropdownMenuGroup>
               {[
                 { label: "Profile", shortcut: "⇧⌘P", link: "/profile" },
-                { label: "Billing", shortcut: "⌘B", link: "/billing" },
                 { label: "Settings", shortcut: "⌘S", link: "/settings" },
-                { label: "Keyboard shortcuts", shortcut: "⌘K", link: "/shortcuts" },
               ].map((item) => (
                 <DropdownMenuItem key={item.label}>
                   <Link to={item.link} className="flex items-center w-full h-full">
@@ -261,34 +267,6 @@ export default function Header() {
                 </DropdownMenuItem>
               ))}
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link to="/team">Team</Link>
-              </DropdownMenuItem>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    {["Email", "Message", "More..."].map((item) => (
-                      <DropdownMenuItem key={item}>
-                        <Link to={`/${item.toLowerCase()}`}>{item}</Link>
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuItem>
-                New Team
-                <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            {["GitHub", "Support", "API"].map((item, index) => (
-              <DropdownMenuItem key={item} disabled={index === 2}>
-                {index === 0 ? <Link to="/github">{item}</Link> : item}
-              </DropdownMenuItem>
-            ))}
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Link to="/logout">Log out</Link>

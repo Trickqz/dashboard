@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
     Dialog,
     DialogContent,
     DialogFooter,
     DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 
+interface User {
+    username: string;
+    name: string;
+    email: string;
+}
+
 function UserProfile() {
-    const { username } = useParams();
-    const [user, setUser] = useState(null);
+    const { username } = useParams<{ username: string }>();
+    const [user, setUser] = useState<User | null>(null);
 
     useEffect(() => {
         axios.get(`http://localhost:3000/profile/${username}`)
@@ -25,7 +31,7 @@ function UserProfile() {
     }, [username]);
 
     if (!user) {
-        return;
+        return null;
     }
 
     return (
@@ -38,7 +44,7 @@ function UserProfile() {
                     <Avatar className='w-32 h-auto'>
                         <AvatarImage src="https://github.com/Trickqz.png" alt="@Trickqz" />
                     </Avatar>
-                    <h1 className='text-xl font-medium mt-6'>{user.username}z</h1>
+                    <h1 className='text-xl font-medium mt-6'>{user.username}</h1>
                     <p className='text-base text-[hsl(var(--muted-foreground))]'>{user.name}</p>
                     <p className='text-sm text-[hsl(var(--muted-foreground))] opacity-40'>{user.email}</p>
                 </div>

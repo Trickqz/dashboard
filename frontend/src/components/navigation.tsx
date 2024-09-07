@@ -63,20 +63,6 @@ export function Navigation({
                     </Popover>
                 </div>
             </div>
-            <div className="h-10 bg-[hsl(var(--muted))] mt-9 max-w-[400px] justify-center rounded-lg p-1 flex flex-row gap-2">
-                <div className="p-1 w-24 flex justify-center cursor-pointer items-center rounded-lg  bg-[hsl(var(--background))]">
-                    <h1 className="text-sm font-medium">Overview</h1>
-                </div>
-                <div className="p-1 w-24 flex justify-center items-center rounded-lg">
-                    <h1 className="text-sm font-medium text-[hsl(var(--muted-foreground))]">Analytics</h1>
-                </div>
-                <div className="p-1 w-24 flex justify-center items-center rounded-lg">
-                    <h1 className="text-sm font-medium text-[hsl(var(--muted-foreground))]">Reports</h1>
-                </div>
-                <div className="p-1 w-24 flex justify-center items-center rounded-lg">
-                    <h1 className="text-sm font-medium text-[hsl(var(--muted-foreground))]">Notifications</h1>
-                </div>
-            </div>
         </div>
     )
 }
