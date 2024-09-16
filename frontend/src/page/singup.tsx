@@ -13,7 +13,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ModeToggleEcommerce } from './e-commerce/components/mode-toggle-Ecommerce';
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { useState } from 'react';
 import {
@@ -88,7 +88,7 @@ export function Signup() {
             </div>
             <div className="h-full lg:w-2/4 relative overflow-y-auto w-full flex justify-center items-center">
                 <div className="absolute top-10 right-10">
-                    <ModeToggle />
+                    <ModeToggleEcommerce />
                 </div>
                 <div>
                     <div className="flex flex-col space-y-2 text-center">

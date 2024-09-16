@@ -5,9 +5,9 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ModeToggle } from "@/components/mode-toggle";
 import { BorderBeam } from "@/components/magicui/border-beam";
 import { useNavigate } from 'react-router-dom';
+import { ModeToggleEcommerce } from './e-commerce/components/mode-toggle-Ecommerce';
 
 const formSchema = z.object({
   username: z.string().min(5, {
@@ -31,6 +31,7 @@ export function Signin() {
       localStorage.setItem('token', token);
       setTimeout(() => {
         navigate('/dashboard');
+        window.location.reload(); 
       })
     } catch (error) {
       console.error('Erro ao fazer login:', error);
@@ -45,7 +46,7 @@ export function Signin() {
       </div>
       <div className="h-full lg:w-2/4 w-full flex justify-center items-center">
         <div className="absolute top-10 right-10">
-          <ModeToggle />
+          <ModeToggleEcommerce />
         </div>
         <div>
           <div className="flex flex-col space-y-2 text-center">

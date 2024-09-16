@@ -48,7 +48,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CopyIcon, ExternalLink, ShoppingCart } from "lucide-react";
+import { CopyIcon, ExternalLink, FileSymlink, ShoppingCart, UserCog } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -136,7 +136,7 @@ function DatePicker({ label, date, setDate }: { label: string; date: Date | unde
 
 export default function Header() {
   return (
-    <header className="w-full relative h-16 border-b lg:flex hidden backdrop-blur justify-between pl-3 pr-3 sm:pl-14 sm:pr-14 dark:border-white/20 border-black/30 items-center flex-row">
+    <header className="w-full z-50 relative h-16 border-b lg:flex hidden backdrop-blur justify-between pl-3 pr-3 sm:pl-14 sm:pr-14 dark:border-white/20 border-black/30 items-center flex-row">
       <nav className="gap-4 flex text-sm font-normal items-center dark:text-white/60 text-black/80">
         {["Dashboard", "Network", "Wallet", "Withdrawal", "My Investments"].map((item) => (
           <NavLink
@@ -150,31 +150,6 @@ export default function Header() {
             {item}
           </NavLink>
         ))}
-        <NavigationMenu>
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="opacity-60 hover:opacity-100">Extract</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid gap-3 p-4 md:w-[350px] lg:w-[350px] lg:grid-cols-[.75fr_1fr]">
-                  {["Bonification [Extract]", "Income [Extract]"].map((item) => (
-                    <li key={item} className="row-span-3 flex flex-col gap-1">
-                      <NavLink
-                        to={`/${item.toLowerCase().replace(/\s+/g, '-').replace(/\[extract\]/g, '').trim()}`}
-                        className={({ isActive }) =>
-                          `hover:dark:text-white hover:text-black cursor-pointer ${isActive ? "text-black dark:text-white opacity-100" : "text-black/80 dark:text-white/60 opacity-60"
-                          }`
-                        }
-                      >
-                        {item}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
@@ -241,7 +216,36 @@ export default function Header() {
           </Dialog>
         </div>
         <div className="flex flex-row gap-2">
-          <Input className="w-60 md:flex hidden" placeholder="Search..." />
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="w-60 h-10 justify-between md:flex hidden text-muted-foreground relative">Search...
+                <kbd className="pointer-events-none absolute right-[0.7rem] hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                  <span className="text-xs">⌘</span>K</kbd>
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md p-0">
+              <DialogHeader>
+                <div className="flex items-center border-b px-3" cmdk-input-wrapper="">
+                  <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2 h-4 w-4 shrink-0 opacity-50"><path d="M10 6.5C10 8.433 8.433 10 6.5 10C4.567 10 3 8.433 3 6.5C3 4.567 4.567 3 6.5 3C8.433 3 10 4.567 10 6.5ZM9.30884 10.0159C8.53901 10.6318 7.56251 11 6.5 11C4.01472 11 2 8.98528 2 6.5C2 4.01472 4.01472 2 6.5 2C8.98528 2 11 4.01472 11 6.5C11 7.56251 10.6318 8.53901 10.0159 9.30884L12.8536 12.1464C13.0488 12.3417 13.0488 12.6583 12.8536 12.8536C12.6583 13.0488 12.3417 13.0488 12.1464 12.8536L9.30884 10.0159Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                  <Input className="bg-transparent border-none h-10 text-sm" placeholder="Type a command or search..." />
+                </div>
+              </DialogHeader>
+              <div className="p-1 pt-0">
+                <div className="pb-1">
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><FileSymlink className="mr-2" width={18} />Dashboard</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><FileSymlink className="mr-2" width={18} />Network</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><FileSymlink className="mr-2" width={18} />Wallet</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><FileSymlink className="mr-2" width={18} />Withdrawal</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><FileSymlink className="mr-2" width={18} />investments</Button>
+                </div>
+                <Separator />
+                <div className="mt-1">
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><UserCog className="mr-2" width={18}/>Profile</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><UserCog className="mr-2" width={18}/>Settings</Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
           <ModeToggle />
         </div>
         <DropdownMenu>

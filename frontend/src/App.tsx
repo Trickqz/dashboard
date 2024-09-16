@@ -1,14 +1,24 @@
 import { useState, useEffect } from 'react';
-import { ThemeProvider } from "./components/theme-provider";
-import { Dashboard } from "./page/dashboard";
-import { useTheme } from "next-themes";
-import Particles from "@/components/magicui/particles";
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from "react-router-dom";
+
+import { ThemeProvider } from "./components/theme-provider";
+import { useTheme } from "next-themes";
+import { jwtDecode } from "jwt-decode";
+import Particles from "@/components/magicui/particles";
+import { Toaster } from "@/components/ui/sonner"
+
+import Home from './page/home';
+import Dashboard from "./page/users/dashboard";
 import { Signin } from "./page/singin";
 import { Signup } from "./page/singup";
-import { Network } from "./page/network";
-import Verifycode from "./page/settings/verify-code"; 
-import { jwtDecode } from "jwt-decode";
+import { Network } from "./page/users/network";
+import Verifycode from "./page/users/settings/verify-code";
+import UserProfile from './page/users/userprofile';
+
+import Shoppage from './page/e-commerce/shoppage';
+import Catalog from './page/e-commerce/catalog';
+
+import Main from './page/users/website-builder/DndProvider';
 
 const isUserAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -56,13 +66,21 @@ const App = () => {
       <Router>
         <div className="font-geist">
           <Particles className="absolute inset-0 z-[-10]" quantity={70} ease={80} color={color} refresh />
+          <Toaster />
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Signin />} />
             <Route path="/singup" element={<Signup />} />
+            <Route path="/shop" element={<Shoppage />} />
+            <Route path="/catalog" element={<Catalog />} />
             <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/network" element={<Network />} />
               <Route path="/settings" element={<Verifycode />} />
+              <Route path="/profile/:username" element={<UserProfile />} />
+              <Route path="/test" element={<Main />} />
+              <Route path="/shop" element={<Shoppage />} />
+              <Route path="/catalog" element={<Catalog />} />
             </Route>
           </Routes>
         </div>
