@@ -34,6 +34,10 @@ import Header from '@/components/header';
 import WordFadeIn from '@/components/magicui/word-fade-in';
 import { DockDemo } from '@/components/dockdemo';
 import { Link } from 'react-router-dom';
+import { Badge } from '@/components/ui/badge';
+import { BorderBeam } from '@/components/magicui/border-beam';
+import { ShieldCheck, ShoppingCart, UserRoundPlus, UsersRound } from 'lucide-react';
+import NumberTicker from '@/components/magicui/number-ticker';
 
 export type Payment = {
   id: string;
@@ -41,7 +45,10 @@ export type Payment = {
   username: string;
   phone: number;
   email: string;
-  invest: number;
+  orders: number;
+  ordertotal: number;
+  customersince: string;
+  status: 'Activo' | 'Suspended';
 };
 
 const columns: ColumnDef<Payment>[] = [
@@ -61,21 +68,34 @@ const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => <div className="capitalize">{row.getValue('email')}</div>,
   },
   {
-    accessorKey: 'phone',
-    header: 'Phone',
-    cell: ({ row }) => <div className="capitalize">{row.getValue('phone')}</div>,
+    accessorKey: 'orders',
+    header: 'Orders',
+    cell: ({ row }) => <div className="capitalize">{row.getValue('orders')}</div>,
   },
   {
-    accessorKey: 'invest',
-    header: () => <div>Investments</div>,
+    accessorKey: 'ordertotal',
+    header: 'Order Total',
+    cell: ({ row }) => <div className="capitalize">{row.getValue('ordertotal')}</div>,
+  },
+  {
+    accessorKey: 'customersince',
+    header: 'Customer Since',
+    cell: ({ row }) => <div className="capitalize">{row.getValue('customersince')}</div>,
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
     cell: ({ row }) => {
-      const invest = parseFloat(row.getValue('invest'));
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(invest);
-
-      return <div className="font-medium">{formatted}</div>;
+      const status = row.getValue('status');
+      const isActive = status === 'Activo';
+      return (
+        <div className="capitalize">
+          <Badge
+            className={`rounded-md ${isActive ? 'bg-[#32936f2a] text-[#519C66]' : 'bg-[#e74c3c2a] text-[#e74c3c]'}`}
+          >
+          </Badge>
+        </div>
+      );
     },
   },
   {
@@ -97,7 +117,7 @@ const columns: ColumnDef<Payment>[] = [
         </DropdownMenuContent>
       </DropdownMenu>
     ),
-  },  
+  },
 ];
 
 export function Network() {
@@ -108,7 +128,6 @@ export function Network() {
   const [rowSelection, setRowSelection] = React.useState({});
 
   useEffect(() => {
-    // Fetch data from backend
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3000/network');
@@ -147,15 +166,51 @@ export function Network() {
       <DockDemo />
       <div className="w-full p-3 sm:p-14">
         <WordFadeIn className="text-3xl font-bold" words="Network" />
-        <div className="flex items-center mt-5 py-4">
+        <div className="grid xl:grid-cols-4 md:grid-cols-2 mt-12 grid-cols-1 gap-7">
+          <div className="h-[130px] relative border rounded-[0.6rem] p-7 flex justify-center flex-col">
+            <BorderBeam size={50} duration={12} delay={9} />
+            <div className="flex justify-between flex-row mb-1 items-center">
+              <h4 className="text-sm font-medium">All Customers</h4>
+              <UsersRound width={18} height={18} color="hsl(var(--muted-foreground))" />
+            </div>
+            <h1 className="text-2xl font-extrabold"><NumberTicker value={1250} /></h1>
+            <p className="text-[hsl(var(--muted-foreground))] text-sm">+21%</p>
+          </div>
+          <div className="h-[130px] relative border rounded-[0.6rem] p-7 flex justify-center flex-col">
+            <BorderBeam size={50} duration={12} delay={9} />
+            <div className="flex justify-between flex-row mb-1 items-center">
+              <h4 className="text-sm font-medium">Active</h4>
+              <ShieldCheck width={18} height={18} color="hsl(var(--muted-foreground))" />
+            </div>
+            <h1 className="text-2xl font-extrabold">$<NumberTicker value={1180} /></h1>
+            <p className="text-[hsl(var(--muted-foreground))] text-sm">+85%</p>
+          </div>
+          <div className="h-[130px] border relative rounded-[0.6rem] p-7 flex justify-center flex-col">
+            <BorderBeam size={50} duration={12} delay={9} />
+            <div className="flex justify-between flex-row mb-1 items-center">
+              <h4 className="text-sm font-medium">New Customers</h4>
+              <UserRoundPlus width={18} height={18} color="hsl(var(--muted-foreground))" />
+            </div>
+            <h1 className="text-2xl font-extrabold"><NumberTicker value={30} /></h1>
+            <p className="text-[hsl(var(--muted-foreground))] text-sm">-20%</p>
+          </div>
+          <div className="h-[130px] border rounded-[0.6rem] relative p-7 flex justify-center flex-col">
+            <BorderBeam size={50} duration={12} delay={9} />
+            <div className="flex justify-between flex-row mb-1 items-center">
+              <h4 className="text-sm font-medium">Purchasing</h4>
+              <ShoppingCart width={18} height={18} color="hsl(var(--muted-foreground))" />
+            </div>
+            <h1 className="text-2xl font-extrabold"><NumberTicker value={657} /></h1>
+            <p className="text-[hsl(var(--muted-foreground))] text-sm">+20%</p>
+          </div>
+        </div>
+        <div className="flex items-center py-4">
           <Input
             placeholder="Filter Name..."
-            value={[
-              (table.getColumn('name')?.getFilterValue() as string) ?? '',
-            ]}            
+            value={[(table.getColumn('name')?.getFilterValue() as string) ?? '']}
             onChange={(event) => {
-              table.getColumn('name')?.setFilterValue(event.target.value)
-            }}          
+              table.getColumn('name')?.setFilterValue(event.target.value);
+            }}
             className="max-w-sm"
           />
         </div>

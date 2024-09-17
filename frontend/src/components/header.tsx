@@ -34,10 +34,11 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/ui/select"
 import * as React from "react";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
@@ -48,7 +49,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CopyIcon, ExternalLink, FileSymlink, ShoppingCart, UserCog } from "lucide-react";
+import { CopyIcon, ExternalLink, FileSymlink, UserCog } from "lucide-react";
 import {
   Dialog,
   DialogClose,
@@ -138,7 +139,7 @@ export default function Header() {
   return (
     <header className="w-full z-50 relative h-16 border-b lg:flex hidden backdrop-blur justify-between pl-3 pr-3 sm:pl-14 sm:pr-14 dark:border-white/20 border-black/30 items-center flex-row">
       <nav className="gap-4 flex text-sm font-normal items-center dark:text-white/60 text-black/80">
-        {["Dashboard", "Network", "Wallet", "Withdrawal", "My Investments"].map((item) => (
+        {["Dashboard", "Customers", "My Investments"].map((item) => (
           <NavLink
             key={item}
             to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
@@ -167,54 +168,70 @@ export default function Header() {
           </NavigationMenuList>
         </NavigationMenu>
       </nav>
-      <div className="flex flex-row gap-4 items-center">
-        <div className="flex flex-row gap-2">
-          <Button variant="outline"><ShoppingCart className="mr-1" width={14} />Buy</Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline"><ExternalLink className="mr-1" width={14} />Share</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle>Share with friends</DialogTitle>
-                <DialogDescription>To make it easier, you can share by QRCode. Just ask your friend to scan the code below.</DialogDescription>
-              </DialogHeader>
-              <Separator />
-              <div className="flex justify-center p-4">
-                <img className="w-60 h-60" src="https://github.com/endroid/qr-code/blob/main/.github/example.png?raw=true" alt="" />
+      <div className="flex flex-row gap-2 items-center">
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline"><ExternalLink className="mr-1" width={14} />Share</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle>Share with employees</DialogTitle>
+              <DialogDescription>To make it easier, you can share via Link. Just ask your employee to scan the code below.</DialogDescription>
+            </DialogHeader>
+            <div className="flex items-center space-x-2">
+              <div className="grid flex-1 gap-2">
+                <Label htmlFor="link" className="sr-only">
+                  Link
+                </Label>
+                <Input
+                  id="link"
+                  defaultValue="http://localhost:5173/invite/31yu73dd6471sbj1234/trick"
+                  readOnly
+                />
               </div>
-              <Separator />
-              <div className="flex items-center space-x-2">
-                <div className="grid flex-1 gap-2">
-                  <Label htmlFor="link" className="sr-only">
-                    Link
-                  </Label>
-                  <div className='relative'>
-                    <span className='absolute left-2 top-1/2 transform text-sm opacity-50 -translate-y-1/2'>/create-account/</span>
-                    <Input
-                      className='pl-28'
-                      id="link"
-                      defaultValue="officialaccount"
-                      readOnly
-                    />
+              <Button type="submit" size="sm" className="px-3 h-10 transition hover:opacity-50">
+                <span className="sr-only">Copy</span>
+                <CopyIcon className="h-4 w-4" />
+              </Button>
+            </div>
+            <Separator />
+            <h1 className="text-sm font-semibold">People with access</h1>
+            <div className="flex flex-col gap-5">
+              <div className="flex flex-row justify-between items-center">
+                <div className="flex-row flex">
+                  <Avatar className="w-12 h-12">
+                    <AvatarImage src="https://github.com/Trickqz.png" alt="@Trickqz" />
+                    <AvatarFallback>PT</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col justify-center ml-3">
+                    <h1 className="text-base">Patrick Tavares</h1>
+                    <p className="text-sm text-muted-foreground">opatricktavares@gmail.com</p>
                   </div>
                 </div>
-                <Button type="submit" size="sm" className="px-3 h-10 transition hover:opacity-50">
-                  <span className="sr-only">Copy</span>
-                  <CopyIcon className="h-4 w-4" />
-                </Button>
+                <div className="flex flex-col">
+                  <Select>
+                    <SelectTrigger className="w-[110px]">
+                      <SelectValue autoSave="true" placeholder="Access" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="acess">Access</SelectItem>
+                        <SelectItem value="noaccess">No Access</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-              <Separator />
-              <DialogFooter className="sm:justify-start">
-                <DialogClose asChild>
-                  <Button type="button" variant="secondary">
-                    Close
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
+            </div>
+            <DialogFooter className="sm:justify-start">
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  Close
+                </Button>
+              </DialogClose>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
         <div className="flex flex-row gap-2">
           <Dialog>
             <DialogTrigger asChild>
@@ -240,8 +257,8 @@ export default function Header() {
                 </div>
                 <Separator />
                 <div className="mt-1">
-                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><UserCog className="mr-2" width={18}/>Profile</Button>
-                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><UserCog className="mr-2" width={18}/>Settings</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><UserCog className="mr-2" width={18} />Profile</Button>
+                  <Button variant="outline" className="w-full h-10 border-none flex justify-start font-normal"><UserCog className="mr-2" width={18} />Settings</Button>
                 </div>
               </div>
             </DialogContent>

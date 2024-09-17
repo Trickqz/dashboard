@@ -27,6 +27,7 @@ export default function Product() {
   const colors = ["black", "white", "red", "green"];
   const sizes = ["Small", "Medium", "Large", "X-Large"];
   const images = [Blusa, Blusa2, Blusa];
+  const classTabs = "text-xl w-full border-b data-[state=active]:border-b-black data-[state=active]:dark:border-b-white rounded-none data-[state=active]:bg-transparent shadow-none data-[state=active]:shadow-none";
 
   const handleColorClick = (color: string) => {
     setSelectedColor(color);
@@ -50,7 +51,7 @@ export default function Product() {
   const handleQuantityChange = (increment: boolean) => {
     setQuantity((prevQuantity) => {
       const newQuantity = increment ? prevQuantity + 1 : prevQuantity - 1;
-      return newQuantity < 1 ? 1 : newQuantity; // Impede número negativo
+      return newQuantity < 1 ? 1 : newQuantity;
     });
   };
 
@@ -66,7 +67,6 @@ export default function Product() {
     };
 
     console.log("Form Data:", formData);
-    // Aqui você pode enviar os dados para a API ou fazer outra ação
   };
 
   return (
@@ -152,7 +152,7 @@ export default function Product() {
                       onClick={() => setSelectedSize(size)}
                       className={`p-2 px-5 rounded-full cursor-pointer text-base transition ${selectedSize === size
                         ? "bg-primary text-white dark:text-black"
-                        : "bg-[#F0F0F0] dark:bg-[#f0f0f0a2] text-black"
+                        : "bg-[#F0F0F0] dark:bg-zinc-950 dark:border dark:text-white text-black"
                         }`}
                     >
                       {size}
@@ -163,7 +163,7 @@ export default function Product() {
                 <div className="flex flex-row items-center gap-2">
                   <div className="flex justify-center rounded-full relative items-center">
                     <Input
-                      className="w-32 h-12 pl-6 text-center rounded-full bg-[#F0F0F0]"
+                      className="w-32 h-12 pl-6 text-center rounded-full bg-[#F0F0F0] dark:bg-zinc-950"
                       type="number"
                       value={quantity}
                       readOnly
@@ -193,16 +193,15 @@ export default function Product() {
             </div>
           </div>
         </div>
-        <div>
-          <Tabs defaultValue="account" className="w-[400px]">
-            <TabsList>
-              <TabsTrigger value="account">Account</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
-            </TabsList>
-            <TabsContent value="account">Make changes to your account here.</TabsContent>
-            <TabsContent value="password">Change your password here.</TabsContent>
-          </Tabs>
-        </div>
+        <Tabs defaultValue="details" className="mt-20">
+          <TabsList className="w-full bg-transparent">
+            <TabsTrigger className={classTabs} value="details">Product Details</TabsTrigger>
+            <TabsTrigger className={classTabs} value="rating">Rating & Reviews</TabsTrigger>
+            <TabsTrigger className={classTabs} value="faqs">FAQs</TabsTrigger>
+          </TabsList>
+          <TabsContent value="account">
+          </TabsContent>
+        </Tabs>
       </div>
     </>
   );

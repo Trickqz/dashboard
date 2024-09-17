@@ -77,7 +77,7 @@ const App = () => {
             <Route path="/producttest" element={<Product />} />
             <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/network" element={<Network />} />
+              <Route path="/customers" element={<Network />} />
               <Route path="/settings" element={<Verifycode />} />
               <Route path="/profile/:username" element={<UserProfile />} />
               <Route path="/test" element={<Main />} />
