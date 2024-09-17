@@ -196,7 +196,7 @@ export default function Shoppage() {
                     <div className="space-y-8 ml-40">
                         <h1 className="text-7xl font-bold w-[577px]">FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
                         <p className="w-[545px] text-base font-light">Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
-                        <Link to="/catalog"><Button className="w-48 rounded-2xl h-10 font-semibold">Shop Now</Button></Link>
+                        <Link to="/catalog"><Button className="w-48 mt-5 rounded-2xl h-10 font-semibold">Shop Now</Button></Link>
                         <div className="flex flex-row h-14 space-x-8 items-center">
 
                             <div>

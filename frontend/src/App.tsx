@@ -19,6 +19,7 @@ import Shoppage from './page/e-commerce/shoppage';
 import Catalog from './page/e-commerce/catalog';
 
 import Main from './page/users/website-builder/DndProvider';
+import Product from './page/e-commerce/product';
 
 const isUserAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -70,9 +71,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Signin />} />
-            <Route path="/singup" element={<Signup />} />
+            <Route path="/signup" element={<Signup />} />
             <Route path="/shop" element={<Shoppage />} />
             <Route path="/catalog" element={<Catalog />} />
+            <Route path="/producttest" element={<Product />} />
             <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/network" element={<Network />} />

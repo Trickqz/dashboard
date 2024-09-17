@@ -93,7 +93,7 @@ export default function Catalog() {
                 <div className="mt-14 grid grid-cols-4 gap-10">
                     {cardsData.map((card) => (
                         <div key={card.id} className="cursor-pointer">
-                            <div className="bg-[#F2F0F1] flex rounded-xl justify-center items-center w-[295px] h-[298px]">
+                            <div className="bg-[#F2F0F1] flex rounded-xl justify-center items-center w-[315px] h-[300px]">
                                 <img src={card.imgSrc} alt={card.title} />
                             </div>
                             <div className="mt-4 space-y-1">

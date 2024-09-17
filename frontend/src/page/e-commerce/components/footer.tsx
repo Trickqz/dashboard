@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { FaFacebook, FaInstagram, FaTwitter, FaWhatsapp } from "react-icons/fa6";
 
-export default function footer() {
+export default function Footer() {
     return (
         <div className="bg-foreground justify-center items-center flex flex-col text-border mt-20 w-full h-[350px]">
             <div className="flex flex-row gap-28">

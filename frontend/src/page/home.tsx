@@ -54,7 +54,7 @@ export default function Home() {
               Get Started for free <ArrowRightIcon className="ml-2" width={17} height={17} />
             </Button></Link>
           </div>
-          <div className="w-[1400px] rounded-xl bottom-[-60px] blur-3xl absolute bg-primary/20 h-[400px]"></div>
+          <div className="w-[1400px] rounded-xl bottom-[-60px] blur-3xl absolute dark:bg-primary/20 bg-primary/70 h-[800px]"></div>
           <div className="relative flex items-center flex-col rounded-xl mt-10">
             <img src={Dashboardimg} className="border h-[750px] rounded-xl" />
             <BorderBeam size={250} duration={12} delay={9} />
