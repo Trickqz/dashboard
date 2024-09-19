@@ -1,14 +1,15 @@
 import { ModeToggleEcommerce } from "../components/mode-toggle-Ecommerce";
 import { Input } from "@/components/ui/input";
-import { CircleUser, ShoppingCart, X } from "lucide-react";
+import { CircleUser, X } from "lucide-react";
 import { useState } from "react";
 import React from 'react';
+import Cart from "./cart";
 
 interface HeaderProps {
     children?: React.ReactNode;
 }
 
-const Header: React.FC<HeaderProps> = ({ children }) =>{
+const Header: React.FC<HeaderProps> = ({ children }) => {
     const [isVisible, setIsVisible] = useState(true);
 
     const handleClose = () => {
@@ -42,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ children }) =>{
                     </nav>
                     <Input className="w-[600px] h-10 rounded-2xl" placeholder="Search for products..." />
                     <div className="flex gap-3 items-center">
-                        <ShoppingCart width={22} />
+                        <Cart />
                         <CircleUser width={22} />
                         <ModeToggleEcommerce />
                     </div>

@@ -120,7 +120,7 @@ const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-export function Network() {
+export function Customers() {
   const [data, setData] = useState<Payment[]>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -165,7 +165,7 @@ export function Network() {
       <Header />
       <DockDemo />
       <div className="w-full p-3 sm:p-14">
-        <WordFadeIn className="text-3xl font-bold" words="Network" />
+        <WordFadeIn className="text-3xl font-bold" words="Customers" />
         <div className="grid xl:grid-cols-4 md:grid-cols-2 mt-12 grid-cols-1 gap-7">
           <div className="h-[130px] relative border rounded-[0.6rem] p-7 flex justify-center flex-col">
             <BorderBeam size={50} duration={12} delay={9} />

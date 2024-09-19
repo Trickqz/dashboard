@@ -139,7 +139,7 @@ export default function Header() {
   return (
     <header className="w-full z-50 relative h-16 border-b lg:flex hidden backdrop-blur justify-between pl-3 pr-3 sm:pl-14 sm:pr-14 dark:border-white/20 border-black/30 items-center flex-row">
       <nav className="gap-4 flex text-sm font-normal items-center dark:text-white/60 text-black/80">
-        {["Dashboard", "Customers", "My Investments"].map((item) => (
+        {["Dashboard", "Orders", "Customers", "Inventory"].map((item) => (
           <NavLink
             key={item}
             to={`/${item.toLowerCase().replace(/\s+/g, '-')}`}

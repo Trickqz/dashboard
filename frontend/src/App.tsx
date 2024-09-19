@@ -11,7 +11,8 @@ import Home from './page/home';
 import Dashboard from "./page/users/dashboard";
 import { Signin } from "./page/singin";
 import { Signup } from "./page/singup";
-import { Network } from "./page/users/network";
+import { Customers } from "./page/users/customers";
+import { Inventory } from './page/users/inventory';
 import Verifycode from "./page/users/settings/verify-code";
 import UserProfile from './page/users/userprofile';
 
@@ -20,6 +21,9 @@ import Catalog from './page/e-commerce/catalog';
 
 import Main from './page/users/website-builder/DndProvider';
 import Product from './page/e-commerce/product';
+import Login from './page/e-commerce/login';
+import Register from './page/e-commerce/register';
+import InventoryAdd from './page/users/inventory/inventoryadd';
 
 const isUserAuthenticated = () => {
   const token = localStorage.getItem('token');
@@ -72,12 +76,17 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+            {/* E-commerce */}
+            <Route path="/signin" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/shop" element={<Shoppage />} />
             <Route path="/catalog" element={<Catalog />} />
             <Route path="/producttest" element={<Product />} />
             <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/customers" element={<Network />} />
+              <Route path="/customers" element={<Customers />} />
+              <Route path="/inventory" element={<Inventory />} />
+              <Route path="/inventory/add" element={<InventoryAdd />} />
               <Route path="/settings" element={<Verifycode />} />
               <Route path="/profile/:username" element={<UserProfile />} />
               <Route path="/test" element={<Main />} />
